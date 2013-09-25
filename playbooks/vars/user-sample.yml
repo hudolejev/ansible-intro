@@ -1,0 +1,11 @@
+# -*- coding: utf-8; indent-tabs-mode: nil; tab-width: 2 -*-
+#
+# Rename to user.yml -- this will be included by `playbooks/add_user.yml`.
+# Variables:
+#   user: your user login (example: elvis)
+#   key: your SSH public key -- you can get it via `cat .ssh/id_rsa.pub`.
+
+---
+user: FIXME
+key: FIXME
+

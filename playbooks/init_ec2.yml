@@ -1,0 +1,20 @@
+# -*- coding: utf-8; indent-tabs-mode: nil; tab-width: 2 -*-
+#
+# Run on freshly started EC2 node
+# ansible-playbook -i hosts playbooks/init_ec2.yml -u ubuntu --private-key /path/to/private/key
+
+---
+- name: Initial EC2 node setup
+  hosts: all
+  sudo: yes
+
+  tasks:
+  - command: locale-gen en_GB.UTF-8
+
+  - name: Allows sudo without password for all admin users (don't do it in prod!)
+    lineinfile: dest="/etc/sudoers" regexp="^%admin" line="%admin ALL=(ALL) NOPASSWD:ALL"
+
+  - apt: update_cache=yes
+
+  - command: updatedb
+

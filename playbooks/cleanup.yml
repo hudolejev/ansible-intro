@@ -1,0 +1,19 @@
+# -*- coding: utf-8; indent-tabs-mode: nil; tab-width: 2 -*-
+
+---
+- name: Clean up
+  hosts: all
+  sudo: yes
+  tasks:
+  - service: name={{item}} state=stopped
+    ignore_errors: yes
+    with_items:
+    - jetty
+    - nginx
+
+  - file: path=/etc/nginx/sites-enabled/proxy.conf state=absent
+
+  - command: apt-get -y purge jetty
+  - command: apt-get -y purge nginx
+#  - command: apt-get -y autoremove
+

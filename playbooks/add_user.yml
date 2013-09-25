@@ -1,0 +1,14 @@
+# -*- coding: utf-8; indent-tabs-mode: nil; tab-width: 2 -*-
+
+---
+- name: Add admin user
+  hosts: all
+  sudo: yes
+
+  vars_files:
+  - vars/user.yml
+
+  tasks:
+  - user: name="{{user}}" groups="adm,admin" shell="/bin/bash"
+  - authorized_key: user="{{user}}" key="{{key}}"
+

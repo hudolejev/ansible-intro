@@ -1,0 +1,30 @@
+# -*- coding: utf-8; indent-tabs-mode: nil; tab-width: 2 -*-
+
+---
+- name: Demo -- installs and configures Jetty and Nginx as proxy 80 -> 8080
+  hosts: all
+  sudo: yes
+
+  tasks:
+  - apt: pkg=jetty,nginx update_cache=yes
+
+  - lineinfile: dest=/etc/default/jetty regexp="NO_START" line="NO_START=0"
+  - lineinfile: dest=/etc/default/jetty regexp="JETTY_HOST" line="JETTY_HOST=0.0.0.0"
+
+  - copy: src=files/proxy.conf dest=/etc/nginx/sites-enabled/proxy.conf
+    notify:
+    - nginx_test_config
+    - nginx_restart
+
+  - service: name={{item}} state=started
+    with_items:
+    - jetty
+    - nginx
+
+  handlers:
+  - name: nginx_test_config
+    command: nginx -t
+
+  - name: nginx_restart
+    service: name=nginx state=restarted
+

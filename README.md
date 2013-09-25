@@ -1,6 +1,7 @@
 Ansible introduction and demo for [DevClub.eu event](http://www.devclub.eu/2013/09/11/september-meetup/).
 
 Repository contents:
+
  * `playbooks/`: Ansible playbooks
  * `shell-scripts`: Plain shell scripts to perform the same tasks (added for comparison)
  * `hosts`: list of managed servers
